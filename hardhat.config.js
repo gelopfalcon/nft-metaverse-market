@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
+require('dotenv').config();
 const fs = require('fs');
 
 module.exports = {
@@ -7,20 +8,15 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
-    /*
-    mumbai: {
-      // Infura
-      // url: `https://polygon-mumbai.infura.io/v3/${infuraId}`
-      url: "https://rpc-mumbai.matic.today",
-      accounts: [privateKey]
+    rinkeby: {
+      url: process.env.STAGING_ALCHEMY_KEY,
+      accounts: [process.env.PRIVATE_KEY],
     },
-    matic: {
-      // Infura
-      // url: `https://polygon-mainnet.infura.io/v3/${infuraId}`,
-      url: "https://rpc-mainnet.maticvigil.com",
-      accounts: [privateKey]
-    }
-    */
+    mainnet: {
+      chainId: 1,
+      url: process.env.PROD_ALCHEMY_KEY,
+      accounts: [process.env.PRIVATE_KEY],
+    },
   },
   solidity: {
     version: "0.8.4",
