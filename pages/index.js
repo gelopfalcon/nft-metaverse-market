@@ -1,7 +1,9 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Web3Modal from "web3modal"
+import Web3Modal from "web3modal";
+
+
 
 import {
   nftokenaddress, nftgalleryaddress
@@ -17,13 +19,15 @@ export default function Home() {
   useEffect(() => {
     loadNFTs()
   }, [])
+
+
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
+    console.log(process.env);
     const provider = new ethers.providers.JsonRpcProvider("https://eth-rinkeby.alchemyapi.io/v2/vaQ5QKe6VKPRX-_ZwQ62QCXt0z89ESjX")
     const tokenContract = new ethers.Contract(nftokenaddress, NFToken.abi, provider)
     const marketContract = new ethers.Contract(nftgalleryaddress, NFTGallery.abi, provider)
     const data = await marketContract.fetchMarketItems()
-    console.log("despues")
     /*
     *  map over items returned from smart contract and format 
     *  them as well as fetch their token metadata
