@@ -20,12 +20,18 @@ function MyApp({ Component, pageProps }) {
       }
 
       const accounts = await ethereum.request({ method: 'eth_accounts' });
+      const provider = new ethers.providers.Web3Provider(ethereum);
+
+      const info = await provider.getNetwork()
+      if (info.name !== "rinkeby") {
+        console.log("no estás en rinkenby")
+      } 
 
       if (accounts.length !== 0) {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
-        const provider = new ethers.providers.Web3Provider(ethereum);
+        
         provider.getSigner();
       } else {
         console.log("No authorized account found")

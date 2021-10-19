@@ -10,8 +10,8 @@ import {
     nftokenaddress, nftgalleryaddress
   } from '../config'
   
-  import NFToken from '../contracts/ABIs/NFToken.sol/NFToken.json'
-  import NFTGallery from '../contracts/ABIs/Gallery.sol/NFTGallery.json'
+  import NFToken from '../utils/ABIs/NFToken.sol/NFToken.json'
+  import NFTGallery from '../utils/ABIs/Gallery.sol/NFTGallery.json'
 
 export default function CreateToken() {
   const [fileUrl, setFileUrl] = useState(null)

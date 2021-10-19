@@ -7,8 +7,9 @@ import {
   nftokenaddress, nftgalleryaddress
 } from '../config'
 
-import NFToken from '../contracts/ABIs/NFToken.sol/NFToken.json'
-import NFTGallery from '../contracts/ABIs/Gallery.sol/NFTGallery.json'
+
+import NFToken from '../utils/ABIs/NFToken.sol/NFToken.json'
+import NFTGallery from '../utils/ABIs/Gallery.sol/NFTGallery.json'
 
 export default function Home() {
   const [nfts, setNfts] = useState([])
@@ -18,11 +19,11 @@ export default function Home() {
   }, [])
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.JsonRpcProvider()
+    const provider = new ethers.providers.JsonRpcProvider("https://eth-rinkeby.alchemyapi.io/v2/vaQ5QKe6VKPRX-_ZwQ62QCXt0z89ESjX")
     const tokenContract = new ethers.Contract(nftokenaddress, NFToken.abi, provider)
     const marketContract = new ethers.Contract(nftgalleryaddress, NFTGallery.abi, provider)
     const data = await marketContract.fetchMarketItems()
-
+    console.log("despues")
     /*
     *  map over items returned from smart contract and format 
     *  them as well as fetch their token metadata
@@ -47,17 +48,18 @@ export default function Home() {
   }
   async function buyNft(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(nftgalleryaddress, Market.abi, signer)
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(nftgalleryaddress, Market.abi, signer);
 
     /* user will be prompted to pay the asking proces to complete the transaction */
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')   
+    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');   
     const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
       value: price
-    })
+    });
+    
     await transaction.wait()
     loadNFTs()
   }
