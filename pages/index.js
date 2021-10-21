@@ -23,7 +23,6 @@ export default function Home() {
 
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
-    console.log(process.env);
     const provider = new ethers.providers.JsonRpcProvider("https://eth-rinkeby.alchemyapi.io/v2/vaQ5QKe6VKPRX-_ZwQ62QCXt0z89ESjX")
     const tokenContract = new ethers.Contract(nftokenaddress, NFToken.abi, provider)
     const marketContract = new ethers.Contract(nftgalleryaddress, NFTGallery.abi, provider)

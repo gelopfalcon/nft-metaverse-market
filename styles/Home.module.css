@@ -148,7 +148,42 @@
 }
 
 .walletButtonText {
-  font-size: 1.4rem;
+  font-size: 1.rem;
   line-height: 2rem;
   color: black;
+}
+
+.wrongNetwork {
+  width: 30rem;
+  height: 10rem;
+  background: rgb(238,174,202);
+  background: -moz-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca",endColorstr="#94bbe9",GradientType=1);
+}
+
+.wrongNetwork > h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: black;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  --tw-text-opacity: 1;
+  color: rgba(153,27,27,var(--tw-text-opacity));
+}
+
+.wrongNetwork > p {
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: black;
+  margin-bottom: 1rem;
+  --tw-text-opacity: 1;
+    color: rgba(153,27,27,var(--tw-text-opacity));
 }
