@@ -3,7 +3,6 @@ import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Link from 'next/link';
-import Web3Modal from "web3modal";
 
 function MyApp({ Component, pageProps }) {
   const [currentAccount, setCurrentAccount] = useState("");

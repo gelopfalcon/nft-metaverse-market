@@ -55,11 +55,11 @@ export default function Home() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(nftgalleryaddress, Market.abi, signer);
+    const contract = new ethers.Contract(nftgalleryaddress, NFTGallery.abi, signer);
 
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');   
-    const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
+    const transaction = await contract.createMarketSale(nftokenaddress, nft.tokenId, {
       value: price
     });
     
@@ -77,6 +77,7 @@ export default function Home() {
                 <img src={nft.image} />
                 <div className="p-4">
                   <p style={{ height: '64px' }} className="text-2xl font-semibold">{nft.name}</p>
+                  Seller: <p style={{ height: '64px' }} className="text-1xl font-semibold">{nft.seller}</p>
                   <div style={{ height: '70px', overflow: 'hidden' }}>
                     <p className="text-gray-400">{nft.description}</p>
                   </div>
