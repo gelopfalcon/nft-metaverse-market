@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
-import Web3Modal from 'web3modal'
+import Web3Modal from 'web3modal';
+import Loader from "react-loader-spinner";
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
@@ -16,6 +17,7 @@ import {
 export default function CreateToken() {
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
+  const [isloadingState, isSetLoadingState] = useState(false)
   const router = useRouter()
 
   async function onChange(e) {
@@ -46,6 +48,7 @@ export default function CreateToken() {
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       console.log(url);
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
+      
       createSale(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
@@ -62,6 +65,7 @@ export default function CreateToken() {
     let contract = new ethers.Contract(nftokenaddress, NFToken.abi, signer);
     let transaction = await contract.createNFToken(url);
     console.log("transaction: " + JSON.stringify(transaction));
+    isSetLoadingState(true);
     let tx = await transaction.wait()
     let event = tx.events[0]
     console.log(tx);
@@ -81,7 +85,16 @@ export default function CreateToken() {
 
   return (
     <div className="flex justify-center">
-      <div className="w-1/2 flex flex-col pb-12">
+    <Loader
+      visible = {isloadingState}
+        type="Circles"
+        color="#00BFFF"
+        height={100}
+        width={100}
+      />
+    
+     {!isloadingState && (
+        <div className="w-1/2 flex flex-col pb-12">
         <input 
           placeholder="Asset Name"
           className="mt-8 border rounded p-4"
@@ -112,6 +125,8 @@ export default function CreateToken() {
           Create Digital Asset
         </button>
       </div>
+     )}
+      
     </div>
   )
 }
