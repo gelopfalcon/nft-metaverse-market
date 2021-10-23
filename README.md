@@ -1,15 +1,34 @@
-# Basic Sample Hardhat Project
+# Full stack NFT Gallery built with Alchemy, Solidity, IPFS, & Next.js
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
 
-Try running some of the following tasks:
+## Local setup
+To run this project locally, follow these steps.
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
+Clone the project locally, change into the directory, and install the dependencies:
+git clone https://github.com/gelopfalcon/nft-metaverse-market.git
+
+cd nft-metaverse-market
+
+# install using NPM or Yarn
+npm install
+
+# or
+
+yarn
+
+### Start the local Hardhat node
+```
 npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
+```
+
+With the network running, deploy the contracts to the local network in a separate terminal window
+
+```
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+Start the app
+
+```
+npm run dev
 ```
